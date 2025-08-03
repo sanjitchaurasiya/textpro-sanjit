@@ -6,7 +6,6 @@
     "dev": "vercel dev"
   },
   "dependencies": {
-    "@sl-code-lords/text-pro-me": "^1.0.0",
-    "node-fetch": "^2.6.7"
+    "@sl-code-lords/text-pro-me": "^1.0.0"
   }
 }
