@@ -1,30 +1,25 @@
 const TextPro = require("@sl-code-lords/text-pro-me");
 
 module.exports = async (req, res) => {
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Only GET allowed" });
+  }
+
+  const { url, text } = req.query;
+  if (!url || !text) {
+    return res.status(400).json({
+      error: "Provide url and text. Example: ?url=https://textpro.me/...&text=Hello"
+    });
+  }
+
   try {
-    if (req.method !== "GET") {
-      return res.status(405).json({ error: "Only GET requests are allowed." });
-    }
-
-    const { url, text } = req.query;
-
-    // Validate query
-    if (!url || !text) {
-      return res.status(400).json({
-        error:
-          "Missing required query parameters. Usage: /api/textpro?url=https://textpro.me/create-glitch-text-effect-online-1026.html&text=YourText",
-      });
-    }
-
     const tp = new TextPro();
     let result;
 
-    // Handle both single and double text effects
     if (Array.isArray(text)) {
       if (text.length < 2) {
         return res.status(400).json({
-          error:
-            "Double-text effect requires two text values. Use ?text=One&text=Two",
+          error: "Double-text requires two text values: &text=One&text=Two"
         });
       }
       result = await tp.double_text_create(url, text[0], text[1]);
@@ -32,17 +27,17 @@ module.exports = async (req, res) => {
       result = await tp.one_text_create(url, text);
     }
 
-    // Return result
     return res.status(200).json({
       status: true,
       title: result.file_name,
       path: url,
-      result: result.url,
+      result: result.url
     });
-  } catch (error) {
+  } catch (err) {
+    console.error("Function crashed:", err);
     return res.status(500).json({
       status: false,
-      error: error.message || "Unexpected server error",
+      error: err.message || "Internal server error"
     });
   }
 };
