@@ -6,6 +6,7 @@
     "dev": "vercel dev"
   },
   "dependencies": {
-    "@sl-code-lords/text-pro-me": "^1.0.0"
+    "@sl-code-lords/text-pro-me": "^1.0.0",
+    "cookie": "^0.5.0"
   }
 }
