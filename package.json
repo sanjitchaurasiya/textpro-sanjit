@@ -6,9 +6,7 @@
     "dev": "vercel dev"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "cookie": "^0.5.0",
-    "form-data": "^4.0.0",
+    "@sl-code-lords/text-pro-me": "^1.0.0",
     "node-fetch": "^2.6.7"
   }
 }
